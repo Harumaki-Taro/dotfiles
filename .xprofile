@@ -1,0 +1,12 @@
+# screen lock
+#light-locker &
+
+#export DBUS_SESSION_BUS_ADDRESS=""
+# Qt/KDE系のアプリケーションで, アイコンが表示されないとき
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+# fcitx (200604madehuyoudatta)
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=”@im=fcitx
+

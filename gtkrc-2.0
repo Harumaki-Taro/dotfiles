@@ -1,0 +1,23 @@
+# File created by KDE Gtk Config
+# Configs for GTK2 programs
+
+include "/usr/share/themes/Arc-Mac-Round-Darker/gtk-2.0/gtkrc"
+style "user-font"
+{
+	font_name="Tina sans"
+}
+widget_class "*" style "user-font"
+gtk-font-name="Tina sans Regular 10"
+gtk-theme-name="Arc-Darkest-3.36"
+gtk-icon-theme-name="Papirus"
+gtk-fallback-icon-theme="Papirus"
+gtk-cursor-theme-name="DMZ_White"
+gtk-toolbar-style=GTK_TOOLBAR_ICONS
+gtk-menu-images=0
+gtk-button-images=0
+gtk-primary-button-warps-slider=0
+
+# System Sounds
+gtk-enable-event-sounds=true
+gtk-enable-input-feedback-sounds=true
+gtk-sound-theme-name=kayo

@@ -1,0 +1,13 @@
+rofi.modi:		combi,window,drun,system:~/.config/rofi/rofi_system.sh
+rofi.sidebar-mode:	true
+rofi.hide-scrollbar:	true
+rofi.kb-cancel:		Escape,Control+bracketleft
+rofi.theme:		~/.config/rofi/themes/Arc-Dark.rasi
+
+# key bindings
+rofi.kb-mode-previous:	Super+h
+rofi.kb-mode-next:	Super+l
+rofi.kb-row-up: Super+k
+rofi.kb-row-down: Super+j
+rofi.kb-cancel: Super+space,Escape
+rofi.kb-row-select: Control+Shift+space

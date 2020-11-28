@@ -1,0 +1,281 @@
+###########################################################
+### 最優先                                             {{{1
+###########################################################
+# --- Dark powered Vim plugin manager ---------------- {{{2
+[[plugins]]
+repo = 'Shougo/dein.vim'
+# }}}2
+# --- vim で非同期処理を実現するためのプラグイン ----- {{{2
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+# }}}2
+# --- file icons ------------------------------------- {{{2
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'  # 必要なプラグインの前に用意する必要あり
+hook_add = '''
+" vim-devicons
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+
+" dir-icons
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsDefaultFolderOpenSymbol = ''
+" file-icons
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['txt'] = ''
+'''
+# }}}2
+# --- neovim の統合インターフェイス ------------------ {{{2
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+# }}}2
+# }}}1
+
+
+###########################################################
+### LSP                                                {{{1
+###########################################################
+# --- coc.nvim ---------------------------------- {{{2
+# 遅延ロードできない
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+build = './install.sh nightly'
+hook_add = '''
+  source $HOME/.vim/rc/coc-setting.vim
+
+  let g:coc_global_extensions = ['coc-snippets','coc-solargraph', 'coc-json', 'coc-git', 'coc-pyls', 'coc-html', 'coc-css', 'coc-phpls', 'coc-lua', 'coc-java', 'coc-markdownlint', 'coc-toml', 'coc-sh']
+
+  " coc-snippets ------------------------------------------
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? coc#_select_confirm() :
+        \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  let g:coc_snippet_next = '<tab>'
+
+  " Use <C-l> for trigger snippet expand.
+  inoremap <C-l> <Plug>(coc-snippets-expand)
+
+  " Use <C-j> for select text for visual placeholder of snippet.
+  vnoremap <C-j> <Plug>(coc-snippets-select)
+
+  " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+  let g:coc_snippet_next = '<c-j>'
+
+  " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+  let g:coc_snippet_prev = '<c-k>'
+
+  " Use <C-j> for both expand and jump (make expand higher priority.)
+  inoremap <C-j> <Plug>(coc-snippets-expand-jump)
+
+  " Use <leader>x for convert visual selected code to snippet
+  xnoremap <leader>x  <Plug>(coc-convert-snippet)
+'''
+# }}}2
+# --- coc-toml ---------------------------------- {{{2
+[[plugins]]
+build   = 'yarn install --frozen-lockfile'
+depends = 'coc.nvim'
+merged  = 0
+on_ft   = 'toml'
+repo    = 'kkiyama117/coc-toml'
+rev     = "develop"
+# }}}2
+
+# }}}1
+
+
+###########################################################
+### 外観                                               {{{1
+###########################################################
+# --- color scheme ------------------------------ {{{2
+#"[[plugins]]
+#repo = 'morhetz/gruvbox'
+#hook_add = '''
+#  let g:gruvbox_contrast_dark = 'soft'
+#  augroup Gruvbox
+#    autocmd!
+#    autocmd VimEnter * nested colorscheme gruvbox
+#  augroup END
+#'''
+#[[plugins]]
+#repo = 'arcticicestudio/nord-vim'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+hook_add = '''
+  set background=dark
+  augroup Hybrid
+    autocmd!
+    autocmd VimEnter,BufEnter * nested colorscheme hybrid
+  augroup END
+'''
+#[[plugins]]
+#repo = 'jacoborus/tender.vim'
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+# }}}2
+## --- 末尾の空白文字を赤くハイライト ------------ {{{2
+#[[plugins]]
+#repo = 'bronson/vim-trailing-whitespace'
+# }}}2
+# }}}1
+
+
+###########################################################
+### git                                                {{{1
+###########################################################
+# --- vim 内での git の操作 --------------------- {{{2
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+    nnoremap <silent> gs :Gstatus<CR><C-w>T
+    nnoremap <silent> gps :Gpush<CR>
+    nnoremap <silent> gpl :Gpull<CR>
+'''
+# }}}2
+# --- git gutter -------------------------------- {{{2
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  let g:gitgutter_max_signs = -1
+
+  if exists('&signcolumn')
+    set signcolumn=yes
+  else
+    let gitgutter_highlight_lines=1
+  endif
+
+  " hybrid のせいで効かない
+  "highlight GitGutterAdd    guifg=#009900 ctermfg=2
+  "highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+  "highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+  "let g:gitgutter_sign_added = '+'
+  "let g:gitgutter_sign_modified = '~'
+  "let g:gitgutter_sign_removed = '-'
+  "let g:gitgutter_sign_removed_first_line = '^^'
+  "let g:gitgutter_sign_removed_above_and_below = '{'
+  "let g:gitgutter_sign_modified_removed = '≃'
+'''
+# }}}2
+# }}}1
+
+
+###########################################################
+### statusline                                         {{{1
+###########################################################
+# --- lightline --------------------------------- {{{2
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+depends = ['vim-fugitive', 'vim-gitgutter']
+hook_add = '''
+" Can be enabled or disabled
+" adding to flagship's statusline
+let g:webdevicons_enable_flagship_statusline = 1
+let g:lightline = {
+    \ 'colorscheme': 'iceberg',
+    \ 'active': {
+    \ 'left': [
+    \   ['mode', 'paste'], ['fugitive', 'gitgutter'],
+    \   ['currentfunction', 'readonly', 'filepath', 'modified'],
+    \ ],
+    \   'right': [ [ 'percent' ],
+    \              [ 'syntastic', 'lineinfo' ],
+    \              [ 'fileformat', 'fileencoding', 'filetype' ]]
+    \ },
+    \ 'component_function': {
+    \   'fugitive'     : 'Fugitive',
+    \   'gitgutter'    : 'GitGutter',
+    \   'filepath'     : 'FilePath',
+    \   'fileformat'   : 'FileFormat',
+    \   'fileencoding' : 'FileEncoding',
+    \   'filetype'     : 'FileType',
+    \   'currentfunction' : 'CocCurrentFunction',
+    \ },
+    \ }
+
+    function! CocCurrentFunction()
+      return get(b:, 'coc_current_function', '')
+    endfunction
+
+    function! Fugitive()
+      if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && winwidth('.') > 120
+        return '' . fugitive#head()
+      else
+        return ''
+      endif
+    endfunction
+
+    function! GitGutter()
+      if ! exists('*GitGutterGetHunkSummary')
+            \ || ! get(g:, 'gitgutter_enabled', 0)
+            \ || winwidth('.') <= 90
+        return ''
+      endif
+      let symbols = [
+            \ g:gitgutter_sign_added . '',
+            \ g:gitgutter_sign_modified . '',
+            \ g:gitgutter_sign_removed . ''
+            \ ]
+      let hunks = GitGutterGetHunkSummary()
+      let ret = []
+      for i in [0, 1, 2]
+        if hunks[i] > 0
+          call add(ret, symbols[i] . hunks[i])
+        endif
+      endfor
+      return join(ret, ' ')
+    endfunction
+
+    function! FilePath()
+      if winwidth(0) > 120
+        return expand("%:s")
+      else
+        return expand("%:t")
+      endif
+    endfunction
+
+    function! FileType()
+      return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'unk ft') : ''
+    endfunction
+
+    function! FileEncoding()
+      return winwidth(0) > 90 ? (strlen(&fileencoding) ? &fileencoding : 'unk enc') : ''
+    endfunction
+
+    function! FileFormat()
+      return winwidth(0) > 90 ? (WebDevIconsGetFileFormatSymbol() . ' ' . &fileformat) : ''
+    endfunction
+
+    set laststatus=2          " 常にステータスラインを表示
+'''
+# }}}2
+# }}}1
+
+
+## --- normal mode 移行時に日本語入力を無効にする -----
+#[[plugins]]  # normal mode に戻ると inssert mode に変更
+#repo = 'vim-scripts/fcitx.vim'
+

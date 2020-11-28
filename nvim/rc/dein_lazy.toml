@@ -1,0 +1,365 @@
+###########################################################
+### git                                                {{{1
+###########################################################
+# --- commitメッセージを表示 ----------------------- {{{2
+[[plugins]]
+repo = 'rhysd/git-messenger.vim'
+on_cmd = ['GitMessenger']
+# }}}2
+# }}}1
+
+
+###########################################################
+### filer                                              {{{1
+###########################################################
+# --- nerdtree ---------------------------------- {{{2
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  "noremap <C-n> :NERDTreeToggle<CR>
+  nnoremap <Leader><Tab> <C-w>w
+  let g:NERDTreeDirArrows = 1
+  let g:NERDTreeWinSize = 22
+  let NERDTreeShowHidden = 1
+'''
+# }}}2
+# --- nerdtree tab ------------------------------ {{{2
+[[plugins]]
+repo = 'jistr/vim-nerdtree-tabs'
+hook_add = '''
+  nnoremap <C-n> :NERDTreeTabsToggle<CR>
+  if argc() == 0
+    let g:nerdtree_tabs_open_on_console_startup = 1
+  end
+'''
+# }}}2
+# --- nerdtree git plugin ----------------------- {{{2
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+# }}}2
+# --- nerdtree syntax highlight ----------------- {{{2
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+hook_add = '''
+  "vim-nerdtree-syntax-highlight
+  let g:NERDTreeLimitedSyntax = 1
+  let s:rspec_red = 'FE405F'
+  let s:git_orange = 'F54D27'
+  let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
+  let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
+  let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
+  let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
+'''
+# }}}2
+# --- ranger連携 -------------------------------- {{{2
+[[plugins]]
+repo   = "iberianpig/ranger-explorer.vim"
+hook_add = '''
+nnoremap <silent><Leader>c :RangerOpenCurrentDir<CR>
+nnoremap <silent><Leader>f :RangerOpenProjectRootDir<CR>
+'''
+# }}}2
+# }}}1
+
+
+###########################################################
+### general                                            {{{1
+###########################################################
+# --- 自動保存 ---------------------------------- {{{2
+[[plugins]]
+repo = 'vim-scripts/vim-auto-save'
+hook_add = '''
+  let g:auto_save = 1
+  let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
+  let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
+
+  "" git commit時に自動保存されないようにする
+  if expand("%:p") =~ 'COMMIT_EDITMSG'
+    let g:auto_save = 0
+  else
+    let g:auto_save = 1
+  endif
+'''
+on_i = 1
+# }}}2
+# --- 現在の状態をセッションとして保存 ---------- {{{2
+[[plugins]]
+repo = 'tpope/vim-obsession'
+# }}}2
+# --- ウィンドウサイズの変更を容易にする -------- {{{2
+[[plugins]]
+repo = 'simeji/winresizer'
+# }}}2
+# --- terminal ---------------------------------- {{{2
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+hook_add = """
+  " F4: ターミナルを表示
+  nnoremap <silent><F4> : <C-u>Deol -split=floating<CR>
+  " Esc: ターミナルモードから抜ける
+  tnoremap <C-[> <C-\><C-n>
+  " F4: ターミナルから一気に抜ける
+  tnoremap <F4> <C-\><C-n><C-w>c
+"""
+# }}}2
+# --- 他言語埋込言語を文脈からfiletypeを判定 ---- {{{2
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+# }}}2
+# --- 括弧補完 ---------------------------------- {{{2
+[[plugins]]
+repo = 'cohama/lexima.vim'
+# }}}2
+# --- def...end など対応するキーワードを自動補完 {{{2
+[[plugins]]
+repo   = 'tpope/vim-endwise'
+# }}}2
+# --- ctagの情報を右側に表示 -------------------- {{{2
+[[plugins]]
+repo = 'preservim/tagbar'
+hook_add = '''
+  nnoremap <F8> :TagbarToggle<CR>
+'''
+# }}}2
+# --- fzfを使ってプロジェクト内のファイル名やソースコードの文字列のあいまい検索 {{{2
+[[plugins]]
+repo   = 'junegunn/fzf.vim'
+hook_add = '''
+  let g:fzf_action = {
+    \ 'ctrl-s': 'split' }
+
+  nnoremap <C-p> :FZFFileList<CR>
+  command! FZFFileList call fzf#run(fzf#wrap({
+              \ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
+              \ 'down': '40%'}))
+
+  nnoremap <C-b> :Buffers<CR>
+  nnoremap <C-g> :Ag<CR>
+  nnoremap <silent> <C-]> :call fzf#vim#tags(expand('<cword>'))<CR>
+
+  let g:fzf_buffers_jump = 1
+
+  command! -bang -nargs=? -complete=dir Files
+              \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+'''
+# }}}2
+# --- インデントの視覚化 ------------------------ {{{2
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+hook_add = '''
+  let g:indentLine_char = '¦'
+  let g:indentLine_color_term = '239'
+  let g:indentLine_faster=1
+
+'''
+# }}}2
+# --- カーソル移動を簡単にする (動いてる？)------ {{{2
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+# }}}2
+# --- コマンドでコメントアウトの on/off --------- {{{2
+[[plugins]]
+repo = 'tyru/caw.vim'
+hook_add = """
+  nnoremap <C-/> <plug>(caw:i:toggle)
+  vnoremap <C-/> <plug>(caw:i:toggle)
+"""
+# }}}2
+# --- Distraction-free writing in Vim. ---------- {{{2
+[[plugins]]
+repo   = "junegunn/goyo.vim"
+# }}}2
+# --- vim cheat sheet --------------------------- {{{2
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+hook_add = '''
+  let g:cheatsheet#cheat_file = '$HOME/.config/nvim/cheatsheet.md'
+  let g:cheatsheet#float_window = 1
+  " you can change float window size.
+  let g:cheatsheet#float_window_width_ratio = 0.8
+  let g:cheatsheet#float_window_height_ratio = 0.8
+  nnoremap <silent> <F2> :Cheat<CR>
+'''
+# }}}2
+# --- help を日本語化する ----------------------- {{{2
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+hook_add = '''
+  set helplang=ja,en
+'''
+# }}}2
+# --- GUI版vimでのみフォントの大きさを +,- で変更 {{{2
+[[plugins]]
+repo   = 'thinca/vim-fontzoom'
+on_cmd = ['Fontzoom']
+on_cmd = ['<Plug>(fontzoom-']
+gui    = 1
+# }}}2
+# }}}1
+
+
+###########################################################
+### 構文解析 (遅延ロード)                              {{{1
+###########################################################
+# --- ale --------------------------------------- {{{2
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+let g:ale_fixers = {
+      \ 'ruby': ['rubocop'],
+      \ }
+'''
+# }}}2
+# }}}1
+
+
+###########################################################
+### snippets                                           {{{1
+###########################################################
+# --- ultisnips --------------------------------- {{{2
+#[[plugins]]]
+#repo = 'SirVer/ultisnips'
+#hook_add = '''
+#  let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+#  let g:UltiSnipsExpandTrigger="<Down>"
+#'''
+# }}}2
+# --- vim-snippets ------------------------------ {{{2
+[[plugins]]
+repo = 'honza/vim-snippets'
+# }}}2
+# }}}1
+
+
+###########################################################
+### コンパイラ言語                                     {{{1
+###########################################################
+# --- source fileとheader fileとの行き来を楽に -- {{{2
+[[plugins]]
+repo = 'vim-scripts/a.vim'
+# }}}2
+# }}}1
+
+
+###########################################################
+### インタプリタ言語                                   {{{1
+###########################################################
+# --- typescript IDE ------------------------------- {{{2
+[[plugins]]
+repo  = 'Quramy/tsuquyomi'
+on_ft = ['typescript']
+# }}}2
+# }}}1
+
+
+###########################################################
+### マークアップ / データファイル                      {{{1
+###########################################################
+# --- todo.txt ---------------------------------- {{{2
+[[plugins]]
+repo = "sietse/todo.txt-vim"
+# }}}2
+# --- realtime markdown preview in browser ------ {{{2
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+hook_add = '''
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 0
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+let g:mkdp_browserfunc = ''
+
+" options for markdown render
+let g:mkdp_page_title = '「${name}」'
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+" content_editable: if enable content editable for preview page, default: v:false
+" disable_filename: if disable filename header for preview page, default: 0
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0
+    \ }
+
+" use a custom markdown style must be absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style must absolute path
+" like '/Users/username/highlight.css' or expand('~/highlight.css')
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+'''
+# }}}2
+# --- json ファイルを読みやすくする ---------------- {{{2
+[[pligins]]
+repo = 'elzr/vim-json'
+if   = '''! has('kaoriya')'''
+# }}}2
+# --- toml ----------------------------------------- {{{2
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+# }}}2
+# }}}1
+

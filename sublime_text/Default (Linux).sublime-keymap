@@ -1,0 +1,44 @@
+[
+	//
+	//
+	//
+    { "keys": ["ctrl+j"], "command": "toggle_mozc" },
+    { "keys": ["super+j"], "command": "join_lines" },
+    { "keys": ["super+o"], "command": "prompt_open_folder" },
+
+	//
+	// Emacs like keybind
+	//
+    // 右移動（Ctrl + F）
+    { "keys": ["ctrl+f"], "command": "move", "args": {"by": "characters", "forward": true } },
+    // 左移動（Ctrl + D）
+    { "keys": ["ctrl+b"], "command": "move", "args": {"by": "characters", "forward": false } },
+    // 上移動（Ctrl + P）
+    { "keys": ["ctrl+p"], "command": "move", "args": {"by": "lines", "forward": false } },
+    // 下移動（Ctrl + N）
+    { "keys": ["ctrl+n"], "command": "move", "args": {"by": "lines", "forward": true } },
+    // 左削除（Ctrl + H）
+    { "keys": ["ctrl+h"], "command": "left_delete" },
+    // 右削除（Ctrl + D）
+    { "keys": ["ctrl+d"], "command": "right_delete" },
+    // 行の先頭へ移動（Ctrl + A）
+    { "keys": ["ctrl+a"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+    // 行の末尾へ移動（Ctrl + E）
+    { "keys": ["ctrl+e"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+
+
+    // 上記の設定のせいで上書きされたコマンドを、Ctrl+Shift で復活させる
+    // 全選択（Ctrl + Shift + A）
+    { "keys": ["super+a"], "command": "select_all" },
+    // 同じ文字を一括選択・一括編集（Ctrl + Shift + D）
+    { "keys": ["super+d"], "command": "find_under_expand" },
+    // 選択行のコピー（Ctrl + Shift + V）
+    { "keys": ["super+v"], "command": "duplicate_line" },
+    // 検索（Ctrl + Shift + F）
+    { "keys": ["super+f"], "command": "show_panel", "args": {"panel": "find", "reverse": false} },
+    // 新規タブ（Ctrl + Shift N）
+    { "keys": ["super+n"], "command": "new_file" },
+	{ "keys": ["super+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
+    { "keys": ["super+b"], "command": "build" },
+    { "keys": ["super+e"], "command": "slurp_find_string" },
+]

@@ -1,0 +1,22 @@
+*~
+*.swp
+.DS_Store
+nvim/nvim/.netrwhist
+nvim/nvim/plugin/packer_compiled.vim
+Session.vim
+ranger/plugins/__pycache__/
+
+[core]
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme="Monokai Extended"
+
+[interactive]
+ diffFilter = delta --color-only
+
+[delta]
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
