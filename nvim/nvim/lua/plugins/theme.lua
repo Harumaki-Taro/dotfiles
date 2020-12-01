@@ -65,7 +65,7 @@ return {
       vim.g.DevIconsEnableFoldersOpenClose = 1
       vim.g.WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
       vim.g.DevIconsDefaultFolderOpenSymbol = ''
-      vim.g.WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { html = '', css = '', md = '', txt = '' }
+      vim.g.WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { html = '', css = '', md = '', txt = '', erb='' }
     end
   },
 
