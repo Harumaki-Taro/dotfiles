@@ -16,7 +16,7 @@ let g:lightline = {
       \ 'inactive': {
       \   'left': [
       \     ['inactive_fake'], [],
-      \     [ 'fugitive', 'filepath_modified' ]
+      \     [ 'mode', 'fugitive', 'filepath_modified' ]
       \   ],
       \   'right': [
       \     [],[],
@@ -125,6 +125,7 @@ function! LL_Inactive_Fake()
   let l:window_length = winwidth('.')
   let l:rest_length = l:window_length
 
+  let b:ll_mode = ''
   let b:ll_filepath_modified = ''
   let b:ll_fugitive = ''
   let b:ll_gitgutter = ''
@@ -132,6 +133,11 @@ function! LL_Inactive_Fake()
   let b:ll_fileformat = ''
   let b:ll_filetype = ''
   let b:ll_fileencoding = ''
+
+  if l:window_length <= 50
+    let l:rest_length -= LL_Mode_()
+    return ''
+  endif
 
   " percent
   let l:rest_length -= LL_Percent_()
