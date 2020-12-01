@@ -161,7 +161,7 @@ function! LL_Mode()
 endfunction
 
 function! LL_Mode_()
-  if &filetype =~# 'help\|vimfiler\|gundo\|nerdtree\|tagbar\|packer'
+  if &filetype =~# 'help\|vimfiler\|gundo\|nerdtree\|tagbar\|packer\|fugitive'
     let b:ll_mode = toupper(&filetype)
   else
     let b:ll_mode = lightline#mode()
