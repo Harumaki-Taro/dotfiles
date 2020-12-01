@@ -52,9 +52,9 @@ setopt mark_dirs
 # パスの最後のスラッシュを削除しない
 setopt noautoremoveslash
 # コマンドのスペルチェックをする
-setopt correct
+#setopt correct
 # コマンドライン全てのスペルチェックをする
-setopt correct_all
+#setopt correct_all
 # 上書きリダイレクトの禁止
 setopt no_clobber
 
