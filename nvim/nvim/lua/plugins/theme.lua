@@ -66,6 +66,7 @@ return {
       vim.g.WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
       vim.g.DevIconsDefaultFolderOpenSymbol = ''
       vim.g.WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { html = '', css = '', md = '', txt = '', erb='' }
+      vim.g.WebDevIconsUnicodeDecorateFileNodesExactSymbols = { ['todo.txt'] = '', ['archive.txt'] = '' }
     end
   },
 
