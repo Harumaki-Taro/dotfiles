@@ -34,8 +34,8 @@ let g:python_host_prog = '/usr/bin/python2'
 "endif
 "
 "" Required:
-"filetype plugin indent on
-"syntax enable
+filetype plugin indent on
+syntax enable
 "
 "" pluginをuninstallするときは、:call dein#recache_runtimepath()
 "call map(dein#check_clean(), "delete(v:val, 'rf')")
@@ -96,8 +96,8 @@ set splitright        " 新しいウィンドウを右に開く
 set splitbelow        " 新しいウィンドウを下に開く
 " }}}2
 " --- ポップアップ ------------------------------ {{{2
-set pumblend=20        " 補完などに使われるポップアップメニューを半透明に表示 (0-100)
-set winblend=20        " 任意の floating windows を半透明に表示します．
+set pumblend=10        " 補完などに使われるポップアップメニューを半透明に表示 (0-100)
+set winblend=10        " 任意の floating windows を半透明に表示します．
 set pumheight=10       " 補完ポップアップメニューに表示される項目数の最大値
 " }}}2
 " --- 保存時自動処理 ---------------------------- {{{2
@@ -168,8 +168,8 @@ augroup END
 " }}}2
 " --- タブ・インデント -------------------------- {{{2
 set autoindent        " 改行の際に自動でインデントする
+set smarttab       "
 set tabstop=2         " タブを何文字の空白に変換するか
-set smartindent       " 改行の際に前の行の公文をチェックし次の行のインデントを増減する
 set shiftwidth=2      " smartindentで増減する空白の数
 set expandtab         " タブ入力を空白に変換
 set softtabstop=2     " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
@@ -180,7 +180,7 @@ set list
 " }}}2
 " --- コメントアウト ---------------------------- {{{2
 " 自動コメントアウトを無効
-augroup comment
+augroup Comment
   autocmd!
   autocmd FileType * setlocal formatoptions-=ro
   " --- コメントアウト ------------------
@@ -367,6 +367,8 @@ inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
 " --- <esc> ------------------------------------ {{{3
 inoremap jk <esc>
 inoremap <esc> <nop>
+tnoremap <silent> jk <C-\><C-n>
+tnoremap <esc> <nop>
 " }}}3
 " --- <BS> / <Del> ------------------------------ {{{3
 set backspace=indent,eol,start  " バックスペースキーの有効化
