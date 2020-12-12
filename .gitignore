@@ -3,6 +3,7 @@
 .DS_Store
 nvim/nvim/.netrwhist
 nvim/nvim/plugin/packer_compiled.vim
+gtk-3.0/bookmarks
 Session.vim
 ranger/plugins/__pycache__/
 
