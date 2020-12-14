@@ -51,7 +51,7 @@ function! SetMyColors_error() abort
   highlight! SpellRare ctermbg=97 ctermfg=252 gui=undercurl guifg=NONE guisp=#a093c7
   highlight! CocErrorHighlight cterm=undercurl gui=undercurl guisp=#e27878
   highlight! CocWarningHighlight cterm=undercurl gui=undercurl guisp=#e2a478
-  highlight! CocUnderline cterm=undercurl gui=undercurl
+  highlight! CocUnderline cterm=undercurl gui=undercurl guisp=#9aa7bd
   highlight! CocErrorSign ctermfg=203 guifg=#e27878
   highlight! CocWarningSign ctermfg=216 guifg=#e2a478
   highlight! CocInfoSign ctermfg=228
