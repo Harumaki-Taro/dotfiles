@@ -36,7 +36,7 @@ setopt IGNOREEOF
 # 色を使用
 autoload -Uz colors
 colors
-export TERM="xterm-256color"
+export TERM="screen-256color"
 export COLORTERM="truecolor"
 # editor
 export EDITOR=nvim
